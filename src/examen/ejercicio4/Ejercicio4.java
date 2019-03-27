@@ -10,50 +10,44 @@ import java.util.regex.Pattern;
 public class Ejercicio4 {
 
 	public static void main(String[] args) {
-
-		Scanner in = new Scanner(System.in);
-		System.out.println("Escriba aqui su agenda de telefonos: ");
-		String s = in.nextLine().toUpperCase();
-
-		Map<String, String> agenda = new HashMap<>();
-
-		// Caracter
-
+		
+		String s=null; 
+		do {
+			System.out.println("Entrada: ");
+			Scanner in = new Scanner(System.in);
+			s= in.nextLine().toUpperCase();
+			
+			Map<String, String> agenda = new HashMap<>();
+			
+		//Caracter
 		String caracter = ConseguirCaracter(s);
-
-		String separador = Pattern.quote(caracter);
-		String[] cadena = s.split(separador);
+		
+		String[] cadena = s.split(caracter);
 
 		String nombre = cadena[0];
 		String numero = cadena[1];
 
-		// reemplazar
-		if (agenda.containsKey(nombre) && caracter == "-") {
-			agenda.remove(nombre, numero);
-			agenda.put(nombre, numero);
-			System.out.println(nombre + " Se asigna con el nuevo numero  " + numero);
-		}
-
-		else if (!agenda.containsKey(nombre) && caracter == "-") {
-			agenda.put(nombre, numero);
-			System.out.println(nombre + " no se encuentra en la agenda, se acaba de añadir un contacto nuevo ");
-		}
-
-		// buscar
-		else if (agenda.containsKey(nombre) && caracter == ":") {
-			System.out.println(nombre + agenda.get(nombre));
-		}
-
-		else if (!agenda.containsKey(nombre) && caracter == ":") {
-			System.out.println(nombre + " no se encuentra en la agenda");
-		}
- 
+			if (caracter.equals("-")) {
+					if (agenda.containsKey(nombre))
+						agenda.put(nombre, numero);	
+			}
+		
+			if (caracter.equals(":")) {
+					if (agenda.containsKey(nombre))
+						System.out.println("Salida: " + nombre + agenda.get(nombre));
+					else
+						System.out.println("Salida: " + nombre + " no se encuentra en la agenda");		
+			}
+		
+		System.out.println();
+			
+		}while(s.equals("fin")==false);
 	}
 
-	// metodo conseguir caracter
+	//Metodo Conseguir Caracter
 	public static String ConseguirCaracter(String cadena) {
-		String caracter = null;
-		for (int i = 1; i < cadena.length(); i++) {
+		String caracter = "";
+		for (int i=0; i<cadena.length(); i++) {
 			if (cadena.charAt(i) == ':') {
 				caracter = ":";
 			} else if (cadena.charAt(i) == '-') {
