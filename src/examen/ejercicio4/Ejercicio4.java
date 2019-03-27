@@ -23,17 +23,20 @@ public class Ejercicio4 {
 		String caracter = ConseguirCaracter(s);
 		
 		String[] cadena = s.split(caracter);
-
+		
+		if (caracter.equals("-")) {
 		String nombre = cadena[0];
 		String numero = cadena[1];
 
-			if (caracter.equals("-")) {
+			
 					if (agenda.containsKey(nombre))
 						agenda.put(nombre, numero);	
 			}
 		
 			if (caracter.equals(":")) {
-					if (agenda.containsKey(nombre))
+				String buscar = cadena[0];
+				String nombre = cadena[1];
+					if (agenda.containsValue(nombre))
 						System.out.println("Salida: " + nombre + agenda.get(nombre));
 					else
 						System.out.println("Salida: " + nombre + " no se encuentra en la agenda");		
